@@ -141,11 +141,44 @@ body {
   }
 }
 
-/* One rule for every image on the page, present and future, instead of a
-   draggable attribute on each tag. */
 img {
   -webkit-user-drag: none;
   user-select: none;
+}
+
+/* Screenshot marquee, desktop only. Two identical halves sit in one track, so
+   -50% is a seamless wrap. Gated on min-width so it never fights the mobile
+   snap carousel, and on reduced motion so it never moves for anyone who asked
+   it not to. Those users get the wrapped grid back. */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (min-width: 640px) and (prefers-reduced-motion: no-preference) {
+  .marquee-track {
+    animation: marquee 45s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+@media (min-width: 640px) and (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow: visible;
+  }
+
+  .marquee-track {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 ::selection {

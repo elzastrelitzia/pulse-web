@@ -132,13 +132,22 @@ export default async function Home() {
               </p>
             </div>
 
-            <div className="mt-12 snap-x snap-mandatory overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {/* Mobile is a snap carousel, a finger drags sideways for free.
+                Desktop is an auto-scrolling marquee, because a mouse wheel only
+                scrolls vertically and nobody discovers a horizontal swipe. The
+                list is rendered twice so the CSS loop has two identical halves
+                to wrap between; the second copy is hidden on mobile so the snap
+                carousel still only cycles through nine cards. */}
+            <div className="marquee mt-12 snap-x snap-mandatory overflow-x-auto pb-2 [scrollbar-width:none] sm:snap-none sm:overflow-hidden [&::-webkit-scrollbar]:hidden">
               {/* 80vw card plus 10vw padding each side equals one viewport, so
                   snap-center parks every image dead centre with the next one
                   peeking. */}
-              <ul className="mx-auto flex w-max items-start gap-5 px-[10vw] sm:px-5">
-                {shots.map((shot, i) => (
-                  <li key={shot.src} className="snap-center sm:snap-start">
+              <ul className="marquee-track flex w-max items-start gap-5 px-[10vw] sm:px-0">
+                {[...shots, ...shots].map((shot, i) => (
+                  <li
+                    key={`${shot.src}-${i}`}
+                    className={`snap-center sm:snap-none ${i >= shots.length ? "hidden sm:block" : ""}`}
+                  >
                     <figure className="r-panel w-[80vw] border border-line bg-canvas p-2 sm:w-[232px]">
                       {/* Fixed box, so every card is the same height even though
                           the source images differ by 3% in aspect. */}
