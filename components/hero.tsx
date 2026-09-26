@@ -22,7 +22,7 @@ export default function Hero() {
               href={REPO_URL}
               target="_blank"
               rel="noopener"
-              className="btn btn-ghost"
+              className="bg-white/10 border border-white/20 rounded-lg py-4 px-6"
               data-testid="hero-github-btn"
             >
               GitHub

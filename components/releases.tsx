@@ -34,11 +34,11 @@ export function HeroDownload() {
       href={asset?.browser_download_url || "#releases"}
       target="_top"
       rel="noopener"
-      className="btn btn-primary"
+      className="bg-white/80 rounded-lg py-4 px-6 text-black"
       data-testid="hero-download-btn"
     >
       Download{" "}
-      <span className="mono opacity-70">
+      <span className="mono opacity-50">
         {release?.tag_name || "—"}
       </span>
     </a>
