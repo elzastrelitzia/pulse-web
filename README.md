@@ -1,6 +1,6 @@
-# Pulse web
+# libremusic web
 
-Marketing and download site for [Pulse](https://github.com/elzastrelitzia/libremusic), an Android music player for YouTube Music.
+Marketing and download site for [libremusic](https://github.com/elzastrelitzia/libremusic), an Android music player for YouTube Music.
 
 The site itself does not host the app. Every download link points at the project's GitHub releases.
 
@@ -42,6 +42,6 @@ Static export, served by GitHub Pages at `/pulse-web/`.
 
 ## License
 
-Pulse is GPL-3.0. See [LICENSE](https://github.com/elzastrelitzia/libremusic/blob/main/LICENSE) in the app repository.
+libremusic is GPL-3.0. See [LICENSE](https://github.com/elzastrelitzia/libremusic/blob/main/LICENSE) in the app repository.
 
-Pulse is based on [ViTune](https://github.com/bartoostveen/ViTune) and [ViMusic](https://github.com/vfsfitvnm/ViMusic). It is not affiliated with YouTube or Google LLC.
+libremusic is based on [ViTune](https://github.com/bartoostveen/ViTune) and [ViMusic](https://github.com/vfsfitvnm/ViMusic). It is not affiliated with YouTube or Google LLC.

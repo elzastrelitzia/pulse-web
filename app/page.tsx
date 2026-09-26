@@ -42,7 +42,7 @@ export default async function Home() {
               height={22}
               className="h-[22px] w-[22px] dark:invert"
             />
-            <span className="text-[15px] font-medium tracking-tight">Pulse</span>
+            <span className="text-[15px] font-medium tracking-tight">libremusic</span>
           </a>
           <div className="flex items-center gap-1 sm:gap-2">
             <a
@@ -52,8 +52,8 @@ export default async function Home() {
               Source code
             </a>
             <a
-              href={release?.apkUrl ?? RELEASES_URL}
-              className="r-btn inline-flex items-center gap-2 bg-ink px-3.5 py-2 text-sm font-medium text-canvas transition-colors hover:bg-ink-2 active:scale-[0.98]"
+              href="#download"
+              className="r-btn hidden items-center gap-2 bg-ink px-3.5 py-2 text-sm font-medium text-canvas transition-colors hover:bg-ink-2 active:scale-[0.98] sm:inline-flex"
             >
               <DownloadSimple size={16} weight="bold" />
               Download APK
@@ -71,12 +71,12 @@ export default async function Home() {
                 Music streaming for everyone.
               </h1>
               <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-muted">
-                Pulse plays almost any song from YouTube Music, keeps lyrics in
-                sync, and caches tracks so you can listen offline.
+                libremusic plays almost any song from YouTube Music, keeps lyrics in
+                sync, and caches tracks so you can listen offline, also no ads btw.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <a
-                  href={release?.apkUrl ?? RELEASES_URL}
+                  href="#download"
                   className="r-btn inline-flex items-center gap-2 bg-ink px-5 py-3 text-[15px] font-medium text-canvas transition-colors hover:bg-ink-2 active:scale-[0.98]"
                 >
                   <DownloadSimple size={17} weight="bold" />
@@ -101,7 +101,7 @@ export default async function Home() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={hero.src}
-                      alt="Pulse home screen showing the library and playback controls"
+                      alt="libremusic home screen showing the library and playback controls"
                       width={hero.width}
                       height={hero.height}
                       fetchPriority="high"
@@ -146,7 +146,7 @@ export default async function Home() {
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={shot.src}
-                          alt={`Pulse app screen ${i + 1} of ${shots.length}`}
+                          alt={`libremusic app screen ${i + 1} of ${shots.length}`}
                           width={shot.width}
                           height={shot.height}
                           loading="lazy"
@@ -300,7 +300,7 @@ export default async function Home() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={VIRUSTOTAL_BADGE}
-                      alt="VirusTotal reports the latest Pulse APK as clean"
+                      alt="VirusTotal reports the latest libremusic APK as clean"
                       width={140}
                       height={20}
                     />
@@ -333,7 +333,7 @@ export default async function Home() {
           <div className="flex flex-col gap-10 lg:flex-row lg:justify-between">
             <div className="max-w-[62ch]">
               <p className="text-sm leading-relaxed text-muted">
-                Pulse is based on{" "}
+                libremusic is based on{" "}
                 <a
                   href="https://github.com/bartoostveen/ViTune"
                   className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink"
@@ -383,6 +383,14 @@ export default async function Home() {
                     className="text-muted transition-colors hover:text-ink"
                   >
                     Python for Android
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/jetbrains/kotlin"
+                    className="text-muted transition-colors hover:text-ink"
+                  >
+                    Kotlin
                   </a>
                 </li>
               </ul>

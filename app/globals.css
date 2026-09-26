@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Monochrome tokens. The Pulse brand mark is pure black on white, so the whole
+/* Monochrome tokens. The libremusic brand mark is pure black on white, so the whole
    page stays neutral. No accent hue is introduced anywhere. */
 :root {
   --canvas: #ffffff;

@@ -18,11 +18,11 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Pulse - Music streaming for everyone",
+  title: "libremusic - Music streaming for everyone",
   description:
-    "Pulse is a lightweight Android music player for YouTube Music. Play almost any song, keep lyrics, cache tracks for offline listening, and sync playlists.",
+    "libremusic is a lightweight Android music player for YouTube Music. Play almost any song, keep lyrics, cache tracks for offline listening, and sync playlists.",
   keywords: [
-    "Pulse",
+    "libremusic",
     "YouTube Music",
     "Android music player",
     "offline music",
@@ -30,18 +30,18 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    siteName: "Pulse",
-    title: "Pulse - Music streaming for everyone",
+    siteName: "libremusic",
+    title: "libremusic - Music streaming for everyone",
     description:
       "A lightweight Android music player for YouTube Music. Lyrics, offline cache, Material You themes, Android Auto.",
     // No leading slash on purpose. metadataBase already ends in /pulse-web, so
     // "/icon.png" would resolve to the domain root and "icon.png" resolves to
     // /pulse-web/icon.png. Do not add the prefix here as well.
-    images: [{ url: "icon.png", width: 512, height: 512, alt: "Pulse app icon" }],
+    images: [{ url: "icon.png", width: 512, height: 512, alt: "libremusic app icon" }],
   },
   twitter: {
     card: "summary",
-    title: "Pulse - Music streaming for everyone",
+    title: "libremusic - Music streaming for everyone",
     description: "A lightweight Android music player for YouTube Music.",
     images: ["icon.png"],
   },
