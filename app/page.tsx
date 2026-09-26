@@ -4,7 +4,9 @@ import {
   DownloadSimple,
   GithubLogo,
   Palette,
+  Prohibit,
   TextT,
+  Translate,
   Waveform,
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -24,7 +26,6 @@ export default async function Home() {
   const release = await getLatestRelease();
   const shots = await getScreenshots(release?.version);
   const hero = shots?.[0];
-  const lyrics = shots?.[2] ?? hero;
 
   return (
     <>
@@ -169,34 +170,14 @@ export default async function Home() {
           </p>
 
           <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
-            <div className="relative col-span-1 overflow-hidden rounded-lg border border-line sm:col-span-2 lg:col-span-4">
-              {lyrics && (
-                <>
-                  {/* Explicit height, not h-full. The cell has no height of its
-                      own, so h-full resolved to auto and the image set the row
-                      to roughly 1600px on desktop. */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={lyrics.src}
-                    alt="Pulse lyrics view with a time-synchronized line highlighted"
-                    width={lyrics.width}
-                    height={lyrics.height}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-[240px] w-full object-cover object-top sm:h-[280px] lg:h-[300px]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-canvas/92 via-canvas/35 to-transparent" />
-                </>
-              )}
-              <div className="relative p-6 sm:p-8">
-                <TextT size={22} weight="bold" className="text-ink" />
-                <h3 className="mt-4 text-xl font-medium tracking-tight">
-                  Synchronized lyrics
-                </h3>
-                <p className="mt-2 max-w-[38ch] text-muted">
-                  Fetch, read, and edit lyrics. Synced lines follow the track.
-                </p>
-              </div>
+            <div className="col-span-1 flex flex-col justify-center rounded-lg border border-line bg-surface p-6 sm:col-span-2 sm:p-8 lg:col-span-4">
+              <TextT size={22} weight="bold" className="text-ink" />
+              <h3 className="mt-4 text-xl font-medium tracking-tight">
+                Synchronized lyrics
+              </h3>
+              <p className="mt-2 max-w-[46ch] text-muted">
+                Fetch, read, and edit lyrics. Synced lines follow the track.
+              </p>
             </div>
 
             <div className="col-span-1 flex flex-col justify-center rounded-lg border border-line bg-tint p-6 sm:col-span-2 lg:col-span-2">
@@ -236,6 +217,28 @@ export default async function Home() {
               </h3>
               <p className="mt-2 text-muted">
                 Take the library on the drive, hands on the wheel.
+              </p>
+            </div>
+
+            {/* Row 3 mirrors row 1: 4 + 2. The wide cell keeps a row layout
+                internally, otherwise one line of copy floats in a 750px band. */}
+            <div className="col-span-1 flex flex-col justify-center gap-x-6 gap-y-3 rounded-lg border border-line bg-surface p-6 sm:col-span-2 sm:flex-row sm:items-center sm:p-8 lg:col-span-4">
+              <Prohibit size={22} weight="bold" className="shrink-0 text-ink" />
+              <div>
+                <h3 className="text-xl font-medium tracking-tight">No ads</h3>
+                <p className="mt-2 max-w-[52ch] text-muted">
+                  Nothing between you and the track.
+                </p>
+              </div>
+            </div>
+
+            <div className="col-span-1 flex flex-col justify-center rounded-lg border border-line p-6 sm:col-span-1 lg:col-span-2">
+              <Translate size={22} weight="bold" className="text-ink" />
+              <h3 className="mt-4 text-xl font-medium tracking-tight">
+                Lyrics translation
+              </h3>
+              <p className="mt-2 text-muted">
+                Read the lyrics in another language.
               </p>
             </div>
           </div>
