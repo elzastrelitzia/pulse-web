@@ -52,6 +52,11 @@
 }
 
 @layer components {
+  .wrap {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 4vw, 24px);
+  }
   .cursor-trail {
     position: fixed;
     inset: 0;
