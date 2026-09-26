@@ -128,15 +128,18 @@ export default async function Home() {
               <p className="mt-4 max-w-[52ch] text-muted">
                 {shots.length === 1
                   ? "One screen from the current release."
-                  : `${shots.length} screens, newest release first. Swipe the row to see the rest.`}
+                  : `${shots.length} screens, newest release first.`}
               </p>
             </div>
 
             <div className="mt-12 snap-x snap-mandatory overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <ul className="mx-auto flex w-max items-start gap-5 px-5">
+              {/* 80vw card plus 10vw padding each side equals one viewport, so
+                  snap-center parks every image dead centre with the next one
+                  peeking. */}
+              <ul className="mx-auto flex w-max items-start gap-5 px-[10vw] sm:px-5">
                 {shots.map((shot, i) => (
-                  <li key={shot.src} className="snap-start">
-                    <figure className="r-panel w-[196px] border border-line bg-canvas p-2 sm:w-[232px]">
+                  <li key={shot.src} className="snap-center sm:snap-start">
+                    <figure className="r-panel w-[80vw] border border-line bg-canvas p-2 sm:w-[232px]">
                       {/* Fixed box, so every card is the same height even though
                           the source images differ by 3% in aspect. */}
                       <div className="aspect-[400/860] overflow-hidden rounded-[4px]">
