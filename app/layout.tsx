@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import "./globals.css";
 import { ICON_URL } from "../lib/site";
 
@@ -10,11 +11,7 @@ export const metadata = {
 
 export const viewport = { themeColor: "#0a0a0a" };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
