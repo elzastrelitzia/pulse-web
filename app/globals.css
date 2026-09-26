@@ -141,6 +141,13 @@ body {
   }
 }
 
+/* One rule for every image on the page, present and future, instead of a
+   draggable attribute on each tag. */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 ::selection {
   background: var(--ink);
   color: var(--canvas);
