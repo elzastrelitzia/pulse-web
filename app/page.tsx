@@ -93,7 +93,7 @@ export default async function Home() {
             </div>
 
             {hero && (
-              <div className="reveal mx-auto w-full max-w-[260px] lg:max-w-[280px]">
+              <div className="reveal mx-auto hidden w-full max-w-[260px] lg:block lg:max-w-[280px]">
                 <div className="r-panel border border-line bg-surface-2 p-2.5">
                   <div className="overflow-hidden rounded-[4px] border border-line">
                     {/* Raw GitHub does not honour image optimisation params, so
