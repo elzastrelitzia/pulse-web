@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   ArrowsClockwise,
   Car,
@@ -9,24 +8,23 @@ import {
   Waveform,
 } from "@phosphor-icons/react/dist/ssr";
 
-import { formatBytes, formatDate, getLatestRelease } from "./lib/release";
+import {
+  formatBytes,
+  formatDate,
+  getLatestRelease,
+  getScreenshots,
+} from "./lib/release";
 
 const REPO_URL = "https://github.com/elzastrelitzia/libremusic";
 const RELEASES_URL = `${REPO_URL}/releases/latest`;
 const VIRUSTOTAL_BADGE =
   "https://img.shields.io/badge/VirusTotal-Clean-brightgreen?style=flat-square&logo=virustotal&logoColor=white";
 
-const shots = [
-  { src: "/screenshots/1.png", width: 393, height: 872 },
-  { src: "/screenshots/2.png", width: 393, height: 872 },
-  { src: "/screenshots/3.png", width: 393, height: 872 },
-  { src: "/screenshots/4.jpg", width: 720, height: 1600 },
-  { src: "/screenshots/5.jpg", width: 720, height: 1600 },
-  { src: "/screenshots/6.jpg", width: 720, height: 1600 },
-];
-
 export default async function Home() {
   const release = await getLatestRelease();
+  const shots = await getScreenshots(release?.version);
+  const hero = shots?.[0];
+  const lyrics = shots?.[2] ?? hero;
 
   return (
     <>
@@ -93,59 +91,72 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="reveal mx-auto w-full max-w-[260px] lg:max-w-[280px]">
-              <div className="r-panel border border-line bg-surface-2 p-2.5">
-                <div className="overflow-hidden rounded-[4px] border border-line">
-                  <Image
-                    src="/screenshots/1.png"
-                    alt="Pulse home screen showing the library and playback controls"
-                    width={393}
-                    height={872}
-                    priority
-                    className="h-auto w-full"
-                  />
+            {hero && (
+              <div className="reveal mx-auto w-full max-w-[260px] lg:max-w-[280px]">
+                <div className="r-panel border border-line bg-surface-2 p-2.5">
+                  <div className="overflow-hidden rounded-[4px] border border-line">
+                    {/* Raw GitHub does not honour image optimisation params, so
+                        next/image would gain nothing here. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={hero.src}
+                      alt="Pulse home screen showing the library and playback controls"
+                      width={hero.width}
+                      height={hero.height}
+                      fetchPriority="high"
+                      decoding="async"
+                      className="h-auto w-full"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </section>
 
         {/* Gallery: horizontal scroll-snap, deliberately not a card row. */}
-        <section
-          id="screenshots"
-          className="scroll-mt-20 border-y border-line bg-surface-2 py-20 lg:py-24"
-        >
-          <div className="mx-auto w-full max-w-6xl px-5">
-            <h2 className="max-w-[20ch] text-3xl font-medium tracking-tight sm:text-4xl">
-              Screenshots
-            </h2>
-            <p className="mt-4 max-w-[52ch] text-muted">
-              Six screens from the current release. Swipe the row to see the
-              rest.
-            </p>
-          </div>
+        {shots && (
+          <section
+            id="screenshots"
+            className="scroll-mt-20 border-y border-line bg-surface-2 py-20 lg:py-24"
+          >
+            <div className="mx-auto w-full max-w-6xl px-5">
+              <h2 className="max-w-[20ch] text-3xl font-medium tracking-tight sm:text-4xl">
+                Screenshots
+              </h2>
+              <p className="mt-4 max-w-[52ch] text-muted">
+                {shots.length === 1
+                  ? "One screen from the current release."
+                  : `${shots.length} screens, newest release first. Swipe the row to see the rest.`}
+              </p>
+            </div>
 
-          <div className="mt-12 snap-x snap-mandatory overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <ul className="mx-auto flex w-max items-start gap-5 px-5">
-              {shots.map((shot, i) => (
-                <li key={shot.src} className="snap-start">
-                  <figure className="r-panel w-[196px] border border-line bg-canvas p-2 sm:w-[232px]">
-                    <div className="overflow-hidden rounded-[4px]">
-                      <Image
-                        src={shot.src}
-                        alt={`Pulse app screen ${i + 1} of ${shots.length}`}
-                        width={shot.width}
-                        height={shot.height}
-                        loading="lazy"
-                        className="h-auto w-full"
-                      />
-                    </div>
-                  </figure>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+            <div className="mt-12 snap-x snap-mandatory overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <ul className="mx-auto flex w-max items-start gap-5 px-5">
+                {shots.map((shot, i) => (
+                  <li key={shot.src} className="snap-start">
+                    <figure className="r-panel w-[196px] border border-line bg-canvas p-2 sm:w-[232px]">
+                      {/* Fixed box, so every card is the same height even though
+                          the source images differ by 3% in aspect. */}
+                      <div className="aspect-[400/860] overflow-hidden rounded-[4px]">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={shot.src}
+                          alt={`Pulse app screen ${i + 1} of ${shots.length}`}
+                          width={shot.width}
+                          height={shot.height}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover object-top"
+                        />
+                      </div>
+                    </figure>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
 
         {/* Bento grid: 5 cells, 5 items, no empty tile. Mixed surfaces. */}
         <section className="mx-auto w-full max-w-6xl px-5 py-20 lg:py-28">
@@ -159,15 +170,24 @@ export default async function Home() {
 
           <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
             <div className="relative col-span-1 overflow-hidden rounded-lg border border-line sm:col-span-2 lg:col-span-4">
-              <Image
-                src="/screenshots/3.png"
-                alt="Pulse lyrics view with a time-synchronized line highlighted"
-                width={393}
-                height={872}
-                loading="lazy"
-                className="h-full w-full object-cover object-top"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-canvas/92 via-canvas/35 to-transparent" />
+              {lyrics && (
+                <>
+                  {/* Explicit height, not h-full. The cell has no height of its
+                      own, so h-full resolved to auto and the image set the row
+                      to roughly 1600px on desktop. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={lyrics.src}
+                    alt="Pulse lyrics view with a time-synchronized line highlighted"
+                    width={lyrics.width}
+                    height={lyrics.height}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-[240px] w-full object-cover object-top sm:h-[280px] lg:h-[300px]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-canvas/92 via-canvas/35 to-transparent" />
+                </>
+              )}
               <div className="relative p-6 sm:p-8">
                 <TextT size={22} weight="bold" className="text-ink" />
                 <h3 className="mt-4 text-xl font-medium tracking-tight">
@@ -179,7 +199,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="col-span-1 rounded-lg border border-line bg-tint p-6 sm:col-span-2 lg:col-span-2">
+            <div className="col-span-1 flex flex-col justify-center rounded-lg border border-line bg-tint p-6 sm:col-span-2 lg:col-span-2">
               <Palette size={22} weight="bold" className="text-tint-ink" />
               <h3 className="mt-4 text-xl font-medium tracking-tight">
                 Material You themes
@@ -189,7 +209,7 @@ export default async function Home() {
               </p>
             </div>
 
-            <div className="hatch col-span-1 rounded-lg border border-line p-6 sm:col-span-1 lg:col-span-2">
+            <div className="hatch col-span-1 flex flex-col justify-center rounded-lg border border-line p-6 sm:col-span-1 lg:col-span-2">
               <Waveform size={22} weight="bold" className="text-ink" />
               <h3 className="mt-4 text-xl font-medium tracking-tight">
                 Audio normalization
@@ -199,7 +219,7 @@ export default async function Home() {
               </p>
             </div>
 
-            <div className="col-span-1 rounded-lg border border-line p-6 sm:col-span-1 lg:col-span-2">
+            <div className="col-span-1 flex flex-col justify-center rounded-lg border border-line p-6 sm:col-span-1 lg:col-span-2">
               <ArrowsClockwise size={22} weight="bold" className="text-ink" />
               <h3 className="mt-4 text-xl font-medium tracking-tight">
                 Offline cache
@@ -209,7 +229,7 @@ export default async function Home() {
               </p>
             </div>
 
-            <div className="col-span-1 rounded-lg border border-line p-6 sm:col-span-1 lg:col-span-2">
+            <div className="col-span-1 flex flex-col justify-center rounded-lg border border-line p-6 sm:col-span-1 lg:col-span-2">
               <Car size={22} weight="bold" className="text-ink" />
               <h3 className="mt-4 text-xl font-medium tracking-tight">
                 Android Auto
