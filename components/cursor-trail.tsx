@@ -3,8 +3,8 @@
 import { useEffect, useRef } from "react";
 
 const COUNT = 24;
-const GAP = 8;
-const CELL = 16;
+const CELL = 18;
+const GAP = CELL / 2;
 
 const BLOCKS = [
   "/blocks/block1.png",
