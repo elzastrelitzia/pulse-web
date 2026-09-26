@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import CursorTrail from "../components/cursor-trail";
 import "./globals.css";
 import { ICON_URL } from "../lib/site";
 
@@ -22,7 +23,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <CursorTrail />
+        {children}
+      </body>
     </html>
   );
 }

@@ -640,3 +640,30 @@ footer {
         transition-duration: 0.001ms !important;
     }
 }
+
+/* cursor trail: pooled blocks snapped to a 16px grid, positioned by JS and
+   animated with the Web Animations API. Fixed container keeps viewport
+   coordinates valid. */
+.cursor-trail {
+    position: fixed;
+    inset: 0;
+    z-index: 30; /* under the sticky header, which is 40 */
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.flair-slot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 16px;
+}
+
+.flair {
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    will-change: transform, opacity;
+}
