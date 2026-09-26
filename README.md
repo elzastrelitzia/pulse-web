@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pulse web
 
-## Getting Started
+Marketing and download site for [Pulse](https://github.com/elzastrelitzia/libremusic), an Android music player for YouTube Music.
 
-First, run the development server:
+The site itself does not host the app. Every download link points at the project's GitHub releases.
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # production build
+npm run lint    # eslint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Release data and screenshots
 
-## Learn More
+Both are read from the GitHub API at build time, never from a local copy:
 
-To learn more about Next.js, take a look at the following resources:
+- `app/lib/release.ts` reads the newest release for version, APK size, and publish date. The download buttons link straight to the release asset, so there is no APK in this repository and no version to keep in sync.
+- Screenshots come from `assets/screenshots/{tag}/` in the app repository, served through GitHub's CDN. The version folder is listed first, then the folder root, so the newest release appears on the left and older shots follow on the right.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Both calls use `revalidate: 3600`. A new release shows up within the hour, with no redeploy. If either API call fails the page still renders: the download buttons fall back to the releases page, and the screenshot section unmounts.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Brand assets in `public/` are copies of files from the app repository. The favicon and Open Graph image come from the Play Store icon.
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Deploys as a static site with ISR. Set `NEXT_PUBLIC_SITE_URL` to the production origin so Open Graph URLs resolve.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+Pulse is GPL-3.0. See [LICENSE](https://github.com/elzastrelitzia/libremusic/blob/main/LICENSE) in the app repository.
+
+Pulse is based on [ViTune](https://github.com/bartoostveen/ViTune) and [ViMusic](https://github.com/vfsfitvnm/ViMusic). It is not affiliated with YouTube or Google LLC.
