@@ -2,10 +2,24 @@
 
 import { useEffect, useRef } from "react";
 
-const COUNT = 24; // pooled blocks
-const GAP = 8; // px of cursor travel between spawns, half a cell, so blocks
-// overlap instead of leaving holes on diagonal moves
-const CELL = 16; // grid the blocks snap to, matches .flair-slot in globals.css
+const COUNT = 24;
+const GAP = 8;
+const CELL = 16;
+
+const BLOCKS = [
+  "/blocks/block1.png",
+  "/blocks/block2.png",
+  "/blocks/block3.png",
+  "/blocks/block4.png",
+  "/blocks/block5.png",
+  "/blocks/block6.png",
+  "/blocks/block7.png",
+  "/blocks/block8.png",
+  "/blocks/block9.png",
+  "/blocks/block10.png",
+  "/blocks/block11.png",
+  "/blocks/block12.png",
+];
 
 export default function CursorTrail() {
   const slots = useRef<(HTMLDivElement | null)[]>([]);
@@ -13,7 +27,6 @@ export default function CursorTrail() {
   const next = useRef(0);
 
   useEffect(() => {
-    // No trail on touch devices, and none when the user asked for less motion.
     if (!window.matchMedia("(hover: hover)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -29,9 +42,12 @@ export default function CursorTrail() {
       const block = slot?.firstElementChild as HTMLElement | null;
       if (!slot || !block) return;
 
-      slot.style.transform = `translate3d(${
-        Math.round(clientX / CELL) * CELL
-      }px, ${Math.round(clientY / CELL) * CELL}px, 0)`;
+      const cx = Math.round(clientX / CELL);
+      const cy = Math.round(clientY / CELL);
+      slot.style.transform = `translate3d(${cx * CELL}px, ${cy * CELL}px, 0)`;
+
+      const img = BLOCKS[(cx + cy) % BLOCKS.length];
+      block.style.backgroundImage = `url(${img})`;
 
       block.getAnimations().forEach((animation) => animation.cancel());
       block.animate(

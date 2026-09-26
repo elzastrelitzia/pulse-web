@@ -663,7 +663,9 @@ footer {
 .flair {
     position: absolute;
     inset: 0;
-    background: var(--accent);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     opacity: 0;
     will-change: transform, opacity;
 }
