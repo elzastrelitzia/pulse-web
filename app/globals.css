@@ -12,7 +12,7 @@
   --ink-2: #45454b;
   --muted: #6b6b73;
   --tint: #eef2f6;
-  --tint-ink: #1f4a63;
+  --tint-ink: #242424;
 }
 
 @theme inline {
@@ -40,8 +40,8 @@
     --ink: #f4f4f5;
     --ink-2: #b6b6bd;
     --muted: #8b8b93;
-    --tint: #16242c;
-    --tint-ink: #9ecbe6;
+    --tint: #202020;
+    --tint-ink: #404040;
   }
 }
 
