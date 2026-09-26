@@ -3,20 +3,20 @@ import { HeroDownload } from "./releases";
 
 export default function Hero() {
   return (
-    <section className="hero">
-      <div className="wrap hero-inner">
+    <section className="hero border-b border-line-soft">
+      <div className="wrap hero-inner py-20 md:py-30 md:py-25">
         <div>
-          <h1>
+          <h1 className="font-geist-pixel font-semibold text-[clamp(36px,5vw,56px)] leading-[1.05] tracking-[-0.025em] text-[hsl(0,0%,98%)] mb-4 md:mb-5">
             Music streaming
             <br />
-            for <em>everyone</em>.
+            for <em className="opacity-60 not-italic">everyone</em>.
           </h1>
-          <p className="lede">
+          <p className="lede text-ink-dim max-w-[44ch] text-[17px] leading-[1.6]">
             Lightweight, customizable, No Ads, sync Lyrics, Play almost
             anything.
           </p>
 
-          <div className="cta-row" data-testid="hero-cta-group">
+          <div className="cta-row flex flex-wrap gap-3 mt-8" data-testid="hero-cta-group">
             <HeroDownload />
             <a
               href={REPO_URL}

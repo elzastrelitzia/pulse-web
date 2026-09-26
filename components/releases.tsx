@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { REPO_URL } from "../lib/site";
 import {
   fetchLatestRelease,
@@ -19,7 +19,7 @@ type ReleasesState = {
 export function NavVersion() {
   const release = useLatestRelease();
   return (
-    <span id="nav-version" className="brand-version mono">
+    <span id="nav-version" className="brand-version mono border border-line rounded-full px-2 py-[2px] text-[11px] text-ink-faint">
       {release?.tag_name || "—"}
     </span>
   );
@@ -38,7 +38,7 @@ export function HeroDownload() {
       data-testid="hero-download-btn"
     >
       Download{" "}
-      <span className="mono" style={{ opacity: 0.7 }}>
+      <span className="mono opacity-70">
         {release?.tag_name || "—"}
       </span>
     </a>
@@ -71,57 +71,29 @@ const downloadIcon = (
   </svg>
 );
 
-const fallbackStyle: CSSProperties = {
-  padding: 24,
-  color: "var(--ink-faint)",
-  fontSize: 14,
-};
-const linkStyle: CSSProperties = {
-  textDecoration: "underline",
-  color: "var(--ink)",
-};
-const growStyle: CSSProperties = { minWidth: 0 };
-const titleRowStyle: CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  gap: 10,
-  flexWrap: "wrap",
-};
-const titleStyle: CSSProperties = { color: "var(--ink)", fontWeight: 500 };
-const metaStyle: CSSProperties = {
-  fontSize: 12,
-  color: "var(--ink-faint)",
-  marginTop: 8,
-};
-const actionsStyle: CSSProperties = {
-  display: "flex",
-  gap: 8,
-  flexShrink: 0,
-};
-
 function ReleaseRow({ release: rel, index }: { release: Release; index: number }) {
   const asset = pickAsset(rel);
   return (
-    <div className="release-row" data-testid={`release-row-${index}`}>
-      <div style={growStyle}>
-        <div style={titleRowStyle}>
-          <span style={titleStyle}>{rel.name || rel.tag_name || ""}</span>
+    <div className="release-row flex flex-wrap items-center justify-between gap-3 px-4.5 py-3.5 border-b border-line-soft transition-colors duration-180 ease-[cubic-bezier(0.16,1,0.3,1)] md:gap-4 md:px-6 md:py-5" data-testid={`release-row-${index}`}>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <span className="text-ink font-medium truncate">{rel.name || rel.tag_name || ""}</span>
           {rel.prerelease && <span className="badge-pre">pre-release</span>}
           {index === 0 && <span className="badge-latest">latest</span>}
         </div>
-        <div className="mono" style={metaStyle}>
-          {formatDate(rel.published_at)}
+        <div className="mono text-[12px] text-ink-faint mt-2 flex items-center gap-1 flex-wrap">
+          <span>{formatDate(rel.published_at)}</span>
           {asset && (
             <>
-              {" · "}
-              <span className="release-filename">{asset.name}</span>
-              {" · "}
-              {formatBytes(asset.size)}
+              <span className="text-ink-faint">·</span>
+              <span className="release-filename text-ink-faint">{asset.name}</span>
+              <span className="text-ink-faint">·</span>
+              <span className="text-ink-faint">{formatBytes(asset.size)}</span>
             </>
           )}
         </div>
       </div>
-      <div style={actionsStyle}>
+      <div className="flex gap-2 flex-shrink-0">
         <a
           href={rel.html_url}
           target="_blank"
@@ -160,11 +132,11 @@ function ReleaseList() {
   if (state.status === "loading") {
     return (
       <>
-        <div className="release-row">
-          <div className="skeleton" style={{ height: 20, width: 160 }} />
+        <div className="release-row flex flex-wrap items-center justify-between gap-3 px-4.5 py-3.5 border-b border-line-soft">
+          <div className="skeleton h-5 w-40" />
         </div>
-        <div className="release-row">
-          <div className="skeleton" style={{ height: 20, width: 130 }} />
+        <div className="release-row flex flex-wrap items-center justify-between gap-3 px-4.5 py-3.5 border-b border-line-soft">
+          <div className="skeleton h-5 w-32" />
         </div>
       </>
     );
@@ -172,13 +144,13 @@ function ReleaseList() {
 
   if (state.status === "error") {
     return (
-      <p style={fallbackStyle}>
+      <p className="px-6 py-6 text-ink-faint text-[14px]">
         Unable to fetch releases.{" "}
         <a
           href={`${REPO_URL}/releases`}
           target="_blank"
           rel="noopener"
-          style={linkStyle}
+          className="underline text-ink"
         >
           View on GitHub
         </a>
@@ -188,7 +160,7 @@ function ReleaseList() {
   }
 
   if (state.releases.length === 0) {
-    return <p style={fallbackStyle}>No releases found.</p>;
+    return <p className="px-6 py-6 text-ink-faint text-[14px]">No releases found.</p>;
   }
 
   return state.releases.map((release, index) => (
@@ -199,18 +171,18 @@ function ReleaseList() {
 export default function Releases() {
   return (
     <section id="releases">
-      <div className="wrap section-pad">
-        <details className="releases-section">
-          <summary className="releases-header">
-            <h2 className="section-title">Releases</h2>
-            <span className="feature-chevron">›</span>
+      <div className="wrap py-12 md:py-24 lg:py-30">
+        <details className="releases-section border-none">
+          <summary className="releases-header flex items-center justify-between cursor-pointer select-none list-none">
+            <h2 className="section-title m-0">Releases</h2>
+            <span className="feature-chevron text-ink-faint text-[18px] transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] flex-shrink-0 ml-3">›</span>
           </summary>
 
-          <div className="releases-list" data-testid="releases-list">
+          <div className="releases-list border border-line rounded-[14px] overflow-hidden mt-5" data-testid="releases-list">
             <ReleaseList />
           </div>
 
-          <div className="releases-footer">
+          <div className="releases-footer mt-4">
             <a
               href={`${REPO_URL}/releases`}
               target="_blank"
