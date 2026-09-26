@@ -64,7 +64,7 @@ export default async function Home() {
 
       <main id="top" className="flex-1">
         {/* Hero: asymmetric split. Text left, real device screenshot right. */}
-        <section className="mx-auto w-full max-w-6xl px-5 pt-16 pb-20 sm:pt-20 lg:pt-24 lg:pb-28">
+        <section className="mx-auto flex min-h-[80dvh] w-full max-w-6xl items-center px-5 pt-16 pb-20 sm:pt-20 lg:min-h-0 lg:pt-24 lg:pb-28">
           <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
             <div className="reveal">
               <h1 className="max-w-[15ch] text-5xl leading-[1.05] font-medium tracking-tight text-balance sm:text-6xl lg:text-[4.25rem]">
