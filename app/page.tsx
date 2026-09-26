@@ -36,7 +36,7 @@ export default async function Home() {
           <a href="#top" className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/logo.svg"
+              src="/pulse-web/logo.svg"
               alt=""
               width={22}
               height={22}

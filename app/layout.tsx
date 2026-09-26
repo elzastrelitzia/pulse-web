@@ -12,7 +12,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  "https://elzastrelitzia.github.io/pulse-web";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -32,17 +34,22 @@ export const metadata: Metadata = {
     title: "Pulse - Music streaming for everyone",
     description:
       "A lightweight Android music player for YouTube Music. Lyrics, offline cache, Material You themes, Android Auto.",
-    images: [{ url: "/icon.png", width: 512, height: 512, alt: "Pulse app icon" }],
+    // No leading slash on purpose. metadataBase already ends in /pulse-web, so
+    // "/icon.png" would resolve to the domain root and "icon.png" resolves to
+    // /pulse-web/icon.png. Do not add the prefix here as well.
+    images: [{ url: "icon.png", width: 512, height: 512, alt: "Pulse app icon" }],
   },
   twitter: {
     card: "summary",
     title: "Pulse - Music streaming for everyone",
     description: "A lightweight Android music player for YouTube Music.",
-    images: ["/icon.png"],
+    images: ["icon.png"],
   },
   icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
+    // Unlike og:image, icon hrefs are emitted verbatim, so they need the
+    // root-absolute path rather than the relative form above.
+    icon: "/pulse-web/icon.png",
+    apple: "/pulse-web/icon.png",
   },
 };
 
