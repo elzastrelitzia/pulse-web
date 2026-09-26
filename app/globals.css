@@ -56,6 +56,14 @@ html {
     user-select: none;           /* Standard syntax */
     -webkit-user-drag: none;
 
+  /* Reserve the scrollbar so locking scroll does not shift the page sideways. */
+  scrollbar-gutter: stable;
+}
+
+/* Lock the page while a lightbox is open. :has() means no JS and no state to
+   keep in sync with the dialog's open attribute. */
+html:has(dialog[open]) {
+  overflow: hidden;
 }
 
 body {
@@ -146,10 +154,7 @@ img {
   user-select: none;
 }
 
-/* Screenshot marquee, desktop only. Two identical halves sit in one track, so
-   -50% is a seamless wrap. Gated on min-width so it never fights the mobile
-   snap carousel, and on reduced motion so it never moves for anyone who asked
-   it not to. Those users get the wrapped grid back. */
+
 @keyframes marquee {
   from {
     transform: translate3d(0, 0, 0);
