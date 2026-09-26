@@ -17,6 +17,7 @@ import {
   getScreenshots,
 } from "./lib/release";
 import { ScreenshotGallery } from "./components/ScreenshotGallery";
+import { CursorTrail } from "./components/CursorTrail";
 
 const REPO_URL = "https://github.com/elzastrelitzia/libremusic";
 const RELEASES_URL = `${REPO_URL}/releases/latest`;
@@ -31,6 +32,7 @@ export default async function Home() {
   return (
     <>
       <div className="ambient" aria-hidden="true" />
+      <CursorTrail />
 
       <header className="sticky top-0 z-40 border-b border-line bg-canvas/80 backdrop-blur-md">
         <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-6 px-5">

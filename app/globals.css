@@ -154,6 +154,11 @@ img {
   user-select: none;
 }
 
+/* The snake sprites are dark marks on an opaque white background. On a light
+   canvas those white squares are invisible, so multiply drops the white and
+   keeps only the mark. Dark mode needs no blend: the white tiles read as light
+   blocks against the dark page. */
+
 
 @keyframes marquee {
   from {

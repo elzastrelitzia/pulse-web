@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { X } from "@phosphor-icons/react/dist/ssr";
 
 import type { Screenshot } from "../lib/release";
 
