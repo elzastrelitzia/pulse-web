@@ -1,6 +1,6 @@
-import { escapeHtml } from "./utils.js";
+import { REPO_URL } from "../lib/site";
 
-const FEATURES = [
+export const FEATURES = [
   { t: "No Ads", d: "Wanna break from the ads?😹" },
   { t: "Translate [BETA]", d: "Translate lyrics into your own language" },
   {
@@ -33,12 +33,16 @@ const FEATURES = [
   { t: "Hmmm🤔", d: "Explore yourself" },
 ];
 
-export function renderFeatures(target) {
-  target.innerHTML = FEATURES.map(
-    (f, i) => `
-      <div class="feature-card" data-testid="feature-card-${i}">
-        <div class="feature-title">${escapeHtml(f.t)}</div>
-        <p class="feature-desc">${escapeHtml(f.d)}</p>
-      </div>`,
-  ).join("");
+export const SCREENSHOT_GROUPS = [
+  { label: "v26.1", dir: "26.1", shots: ["1.png", "3.png", "2.png"] },
+  { label: "v1.2.7", shots: ["4.jpg", "5.jpg", "6.jpg"] },
+  { label: "v1.2.6", shots: ["1.png", "2.png", "3.png"] },
+];
+
+export function screenshotUrl(
+  group: (typeof SCREENSHOT_GROUPS)[number],
+  name: string,
+) {
+  const dir = group.dir ? `${group.dir}/` : "";
+  return `${REPO_URL}/raw/main/assets/screenshots/${dir}${name}`;
 }
