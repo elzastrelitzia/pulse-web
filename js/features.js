@@ -1,6 +1,8 @@
 import { escapeHtml } from "./utils.js";
 
 const FEATURES = [
+  { t: "No Ads", d: "Wanna break from the ads?😹" },
+  { t: "Translate [BETA]", d: "Translate lyrics into your own language" },
   {
     t: "YouTube Music",
     d: "Play almost any song or video from YouTube Music.",
@@ -18,7 +20,7 @@ const FEATURES = [
   { t: "Discover", d: "Find new tracks tailored by mood and genre." },
   { t: "Import playlists", d: "Bring in your existing YouTube playlists." },
   { t: "Synced lyrics", d: "Fetch, display and edit synchronized lyrics." },
-  { t: "Cloud sync", d: "Manage playlists locally or sync to the cloud." },
+  { t: "Cloud sync [broken]", d: "Manage playlists locally or sync to the cloud." },
   { t: "Material You", d: "Highly customizable, dynamic themes." },
   {
     t: "Audio normalize",
@@ -28,6 +30,7 @@ const FEATURES = [
     t: "Android Auto",
     d: "Listen on the road with full Android Auto support.",
   },
+  { t: "Hmmm🤔", d: "Explore yourself" },
 ];
 
 export function renderFeatures(target) {
