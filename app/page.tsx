@@ -24,6 +24,12 @@ const RELEASES_URL = `${REPO_URL}/releases/latest`;
 const VIRUSTOTAL_BADGE =
   "https://img.shields.io/badge/VirusTotal-Clean-brightgreen?style=flat-square&logo=virustotal&logoColor=white";
 
+// just testing
+const TEST_BUILDS = [
+  { label: "Windows test build", href: "https://ts.buzzheavier.com/d/qoponwhn8bhb?v=zqAUfBEDmQ6uygKMxEHFvwkNhUaaUA245Y9epuyKXGAyRcacYFgwp5Q54QaW2tAT2GZ12Wg5OvZPHFUbCoELtHsQTPJhIB2ko9Hn05FptTox219J18ZEYWfByvHqMJj4nUnxDbEjmIP9kLkjaCzK84bWXAttEwxnG80W1ydA8qI3Xej5F2yA9b-6hcTk9qzCuNFZLCkh7Bf3Qaz67DPLAx7s42g" },
+  { label: "Linux test build", href: "" },
+];
+
 export default async function Home() {
   const release = await getLatestRelease();
   const shots = await getScreenshots(release?.version);
@@ -300,6 +306,27 @@ export default async function Home() {
                   </a>
                 </div>
               </div>
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
+              <span className="text-muted">
+                Desktop builds are experimental:
+              </span>
+              {TEST_BUILDS.map((b) =>
+                b.href ? (
+                  <a
+                    key={b.label}
+                    href={b.href}
+                    className="text-ink underline decoration-line-strong underline-offset-4 transition-colors hover:decoration-ink"
+                  >
+                    {b.label}
+                  </a>
+                ) : (
+                  <span key={b.label} className="text-line-strong">
+                    {b.label}
+                  </span>
+                ),
+              )}
             </div>
           </div>
         </section>
