@@ -11,18 +11,14 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 
 import {
-  formatBytes,
-  formatDate,
   getLatestRelease,
   getScreenshots,
 } from "./lib/release";
 import { ScreenshotGallery } from "./components/ScreenshotGallery";
 import { CursorTrail } from "./components/CursorTrail";
+import { ReleaseCard } from "./components/ReleaseCard";
 
 const REPO_URL = "https://github.com/elzastrelitzia/libremusic";
-const RELEASES_URL = `${REPO_URL}/releases/latest`;
-const VIRUSTOTAL_BADGE =
-  "https://img.shields.io/badge/VirusTotal-Clean-brightgreen?style=flat-square&logo=virustotal&logoColor=white";
 
 // just testing
 const TEST_BUILDS = [
@@ -245,68 +241,7 @@ export default async function Home() {
               nothing to keep in sync here.
             </p>
 
-            <div className="r-panel mt-12 border border-line bg-canvas">
-              <div className="flex flex-col gap-8 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between lg:p-10">
-                <div>
-                  <dl className="grid grid-cols-2 gap-x-10 gap-y-5 sm:grid-cols-3">
-                    <div>
-                      <dt className="font-mono text-[11px] tracking-[0.08em] text-muted uppercase">
-                        Version
-                      </dt>
-                      <dd className="mt-1.5 font-mono text-sm">
-                        {release?.version ?? "latest"}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="font-mono text-[11px] tracking-[0.08em] text-muted uppercase">
-                        Size
-                      </dt>
-                      <dd className="mt-1.5 font-mono text-sm">
-                        {release?.apkSize ? formatBytes(release.apkSize) : "n/a"}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="font-mono text-[11px] tracking-[0.08em] text-muted uppercase">
-                        Released
-                      </dt>
-                      <dd className="mt-1.5 font-mono text-sm">
-                        {release ? formatDate(release.published) : "n/a"}
-                      </dd>
-                    </div>
-                  </dl>
-                  <a
-                    href={VIRUSTOTAL_BADGE}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-7 inline-block"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={VIRUSTOTAL_BADGE}
-                      alt="VirusTotal reports the latest libremusic APK as clean"
-                      width={140}
-                      height={20}
-                    />
-                  </a>
-                </div>
-
-                <div className="flex shrink-0 flex-col items-start gap-3 sm:flex-row lg:flex-col lg:items-stretch">
-                  <a
-                    href={release?.apkUrl ?? RELEASES_URL}
-                    className="r-btn inline-flex w-full items-center justify-center gap-2 bg-ink px-6 py-3.5 text-[15px] font-medium whitespace-nowrap text-canvas transition-colors hover:bg-ink-2 active:scale-[0.98]"
-                  >
-                    <DownloadSimple size={17} weight="bold" />
-                    Download APK
-                  </a>
-                  <a
-                    href={release?.pageUrl ?? RELEASES_URL}
-                    className="r-btn inline-flex w-full items-center justify-center gap-2 border border-line-strong px-6 py-3.5 text-[15px] font-medium whitespace-nowrap text-ink transition-colors hover:border-ink active:scale-[0.98]"
-                  >
-                    All releases
-                  </a>
-                </div>
-              </div>
-            </div>
+            <ReleaseCard initial={release} />
 
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
               <span className="text-muted">
